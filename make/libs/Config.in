@@ -98,6 +98,7 @@ endmenu ### "GLib"
 menu "Graphics & fonts"
 
 source make/libs/freetype/Config.in
+source make/libs/libaugeas/Config.in
 source make/libs/libart_lgpl/Config.in
 source make/libs/libexif/Config.in
 source make/libs/jpeg/Config.in
@@ -172,6 +173,7 @@ source make/libs/libdnet/Config.in
 source make/libs/libgsm/Config.in
 source make/libs/iksemel/Config.in
 source make/libs/libpcap/Config.in
+source make/libs/libmcrypt/Config.in
 source make/libs/libmnl/Config.in
 source make/libs/libnet/Config.in
 source make/libs/liboping/Config.in
