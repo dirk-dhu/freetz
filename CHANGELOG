@@ -57,6 +57,7 @@ Latest changes:
     * E-MailRelay 1.9
     * getdns 1.5.2
     * gptfdisk 1.0.1
+    * gzip 1.6
     * iksemel 1.5-git
     * iperf 3.6
     * jansson 2.7
@@ -98,6 +99,8 @@ Latest changes:
     * squashfs-tools 4.3 (modified to support AVM-BE format)
     * wireguard-tools 1.0.20200820
     * wireguard-linux-compat 1.0.20200729
+    * tar 1.28
+    * tar-cgi 0.1 (backup cgi) 
     * wfrog 0.8.2+svn953
     * ws28xx master
     * xz 5.2.4
