@@ -502,6 +502,13 @@ config FREETZ_TARGET_TOOLCHAIN
 		Build the binutils and gcc to run on the target.
 		Files are installed into toolchain/target/target-utils.
 
+config FREETZ_TARGET_GOGCC_ENABLED
+	bool "Build go compiler for toolchain and target" if FREETZ_BUILD_TOOLCHAIN
+	default n
+	depends on FREETZ_TARGET_GCC_5
+	help
+		Build go compiler from current gcc verson.
+
 comment "Both kernel and target toolchain related options ----------"
 config FREETZ_TOOLCHAIN_MINIMIZE_REQUIRED_GLIBC_VERSION
 #	bool "Minimize required GLIBC version" if FREETZ_BUILD_TOOLCHAIN

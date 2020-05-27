@@ -44,7 +44,7 @@ GCC_COMMON_CONFIGURE_OPTIONS += $(strip $(GCC_COMMON_CONFIGURE_OPTIONS_HW_CAPABI
 GCC_COMMON_CONFIGURE_OPTIONS += --disable-nls
 GCC_COMMON_CONFIGURE_OPTIONS += $(QUIET)
 # disable libatomic at least for 4.8 and 5.5 to prevent: configure: error: Pthreads are required to build libatomic
-GCC_COMMON_CONFIGURE_OPTIONS += --disable-libatomic
+GCC_COMMON_CONFIGURE_OPTIONS += $(if $(FREETZ_TARGET_GOGCC_ENABLED),,--disable-libatomic)
 
 
 
@@ -134,7 +134,7 @@ $(GCC_BUILD_DIR1)/.configured: $(GCC_DIR)/.unpacked $(GCC_INITIAL_PREREQ) | binu
 		--build=$(GNU_HOST_NAME) \
 		--host=$(GNU_HOST_NAME) \
 		--target=$(REAL_GNU_TARGET_NAME) \
-		--enable-languages=c \
+		--enable-languages=c,$(if $(FREETZ_TARGET_GOGCC_ENABLED),go,) \
 		--disable-shared \
 		--disable-threads \
 		$(GCC_WITH_HOST_GMP) \
@@ -193,7 +193,7 @@ $(GCC_BUILD_DIR2)/.configured: $(GCC_DIR)/.unpacked $(GCC_STAGING_PREREQ) | binu
 		--build=$(GNU_HOST_NAME) \
 		--host=$(GNU_HOST_NAME) \
 		--target=$(REAL_GNU_TARGET_NAME) \
-		--enable-languages=c,c++ \
+		--enable-languages=c,c++,$(if $(FREETZ_TARGET_GOGCC_ENABLED),go,) \
 		--enable-shared \
 		--enable-threads \
 		$(GCC_WITH_HOST_GMP) \
@@ -201,6 +201,7 @@ $(GCC_BUILD_DIR2)/.configured: $(GCC_DIR)/.unpacked $(GCC_STAGING_PREREQ) | binu
 		$(GCC_WITH_HOST_MPC) \
 		$(GCC_WITH_HOST_ISL) \
 		$(GCC_COMMON_CONFIGURE_OPTIONS) \
+		$(if $(FREETZ_TARGET_GOGCC_ENABLED),--enable-libatomic,) \
 	);
 	touch $@
 
@@ -262,6 +263,7 @@ endif
 		CONFIG_SITE=$(CONFIG_SITE) \
 		\
 		CXX="$(TARGET_MAKE_PATH)/$(TARGET_CROSS)g++" \
+		GOC_FOR_TARGET="$(TARGET_MAKE_PATH)/$(TARGET_CROSS)gccgo" \
 		\
 		CFLAGS_FOR_BUILD="$(TOOLCHAIN_HOST_CFLAGS) -O2 -I$(HOST_TOOLS_DIR)/include" \
 		CXXFLAGS_FOR_BUILD="$(TOOLCHAIN_HOST_CFLAGS) -O2 -I$(HOST_TOOLS_DIR)/include" \
@@ -273,7 +275,7 @@ endif
 		--build=$(GNU_HOST_NAME) \
 		--host=$(REAL_GNU_TARGET_NAME) \
 		--target=$(REAL_GNU_TARGET_NAME) \
-		--enable-languages=c,c++ \
+		--enable-languages=c,c++,$(if $(FREETZ_TARGET_GOGCC_ENABLED),go,) \
 		--enable-shared \
 		--enable-threads \
 		--disable-libstdcxx-pch \
